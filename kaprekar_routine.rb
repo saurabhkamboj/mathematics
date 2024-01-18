@@ -8,10 +8,10 @@ loop do
   number = gets.chomp
 
   break unless number.match?(/[^0-9]/) || number.length != 4
-  puts "Error! Enter a valid number."
+  print "Error! Enter a valid number.\n\n"
 end
 
-puts "Number => #{number}"
+print "Number => #{number}\n\n"
 
 loop do
   small_number = number.chars.sort.join
@@ -21,4 +21,33 @@ loop do
   puts "#{large_number} - #{small_number} = #{number}"
 
   break if number.to_i == KAPREKAR_CONSTANT
+end
+
+# Alternate
+
+number = number.to_i
+
+loop do
+  digits = []
+  4.times {
+    number, digit = number.divmod(10)
+    digits.push(digit)
+  }
+
+  digits.sort!
+  small_number = 0
+  for digit in digits
+    small_number = small_number * 10 + digit
+  end
+
+  digits.sort! { _2 <=> _1 }
+  large_number = 0
+  for digit in digits
+    large_number = large_number * 10 + digit
+  end
+
+  number = large_number - small_number
+  printf("%4d - %4d = #{number}\n", large_number, small_number)
+
+  break if number == KAPREKAR_CONSTANT
 end
