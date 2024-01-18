@@ -2,37 +2,41 @@
 
 KAPREKAR_CONSTANT = 6174
 
-number = 0
+number = nil
 loop do
-  print 'Enter any four digit number: '
-  number = gets.chomp
+  loop do
+    print 'Enter any four digit number: '
+    number = gets.chomp
 
-  break unless number.match?(/[^0-9]/) || number.length != 4
-  print "Error! Enter a valid number.\n\n"
-end
+    break unless number.match?(/[^0-9]/) || number.length != 4
+    print "Error! Enter a valid number.\n\n"
+  end
 
-print "Number => #{number}\n\n"
+  print "Number => #{number}\n\n"
 
-loop do
-  small_number = number.chars.sort.join
-  large_number = small_number.reverse
+  loop do
+    small_number = number.chars.sort.join
+    large_number = small_number.reverse
 
-  number = (large_number.to_i(10) - small_number.to_i(10)).to_s
-  puts "#{large_number} - #{small_number} = #{number}"
+    number = (large_number.to_i(10) - small_number.to_i(10)).to_s
+    puts "#{large_number} - #{small_number} = #{number}"
 
-  break if number.to_i == KAPREKAR_CONSTANT
+    break if number.to_i == KAPREKAR_CONSTANT
+  end
+
+  print "Do you want to test another number? "
+  break unless gets.chomp.include?('y')
 end
 
 # Alternate
 
 number = number.to_i
-
 loop do
   digits = []
-  4.times {
+  4.times do
     number, digit = number.divmod(10)
     digits.push(digit)
-  }
+  end
 
   digits.sort!
   small_number = 0
