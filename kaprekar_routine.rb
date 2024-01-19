@@ -2,7 +2,7 @@
 
 KAPREKAR_CONSTANT = 6174
 
-def valid?(number)
+def not_valid?(number)
   number.match?(/[^0-9]/) ||
     number.length != 4 || number.squeeze.length < 2
 end
@@ -13,7 +13,7 @@ loop do
   loop do
     number = gets.chomp
 
-    break unless valid?(number)
+    break unless not_valid?(number)
 
     print 'Error, enter a valid number! '
   end
